@@ -9,8 +9,13 @@ router.get(`${basePathV1}/hello`, (request, response) => {
 });
 
 router.post(`${basePathV1}/hello`, (request, response) => {
-  const { emit } = request.body;
-  io.emit('hello', `${emit}`);
+  const body = request.body;
+  io.emit('hello', {
+    event: 'add',
+    content: {
+      ...body,
+    },
+  });
 
   return response.json({ message: 'hello room emited' });
 });
