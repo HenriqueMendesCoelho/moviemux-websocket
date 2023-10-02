@@ -29,7 +29,6 @@ export class ValidateTokenUseCase {
 
   private async getUserByToken(token: string) {
     try {
-      console.log(this.cineApiHost);
       const res = await axios.get(`${this.cineApiHost}/api/user`, {
         headers: {
           Authorization: `Bearer ${token}`,
