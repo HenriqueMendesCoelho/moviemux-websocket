@@ -1,7 +1,7 @@
 import express from 'express';
 import { logger } from './middleware/LoggerMiddleware';
-import { router } from './routes';
 import cors from 'cors';
+import { router } from './routes';
 
 const app = express();
 
