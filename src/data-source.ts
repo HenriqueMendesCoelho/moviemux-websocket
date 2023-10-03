@@ -1,6 +1,6 @@
 import 'reflect-metadata';
 import { DataSource } from 'typeorm';
-import { ApiKey } from './src/entity/ApiKey';
+import { ApiKey } from './entity/ApiKey';
 
 export const AppDataSource = new DataSource({
   type: 'sqlite',

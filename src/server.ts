@@ -1,25 +1,34 @@
 import { Server } from 'socket.io';
 import { app } from './app';
 import { validateStart } from './startup';
-import { AppDataSource } from '../data-source';
+import { AppDataSource } from './data-source';
+import { socketIoMiddleware } from './middleware/SocketIoMiddleware';
 
 process.env.TZ = 'America/Sao_Paulo';
 
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config({ path: '.env' });
+}
+
 //Start Socket.io
 const PORT_SOCKET_IO = 3334;
-const io = new Server({ path: '/ws' });
+const io = new Server({
+  path: '/ws',
+  cors: {
+    origin: '*',
+  },
+});
 io.listen(PORT_SOCKET_IO);
 console.log(
   `Socket.io started at http://localhost:${PORT_SOCKET_IO} -> ${new Date().toLocaleString(
     'pt-Br'
   )}`
 );
-io.on('connection', (socket) => {
-  console.log('User connected');
-});
-io.on('disconnect', (socket) => {
-  console.log('User disconnected');
-});
+io.of(/^\/movie\/.+$/)
+  .on('connection', (socket) => {
+    console.log('User connected to -> ' + socket.nsp?.name);
+  })
+  .use(socketIoMiddleware);
 
 //Start Express
 const PORT = 3333;
