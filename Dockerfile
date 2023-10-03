@@ -1,14 +1,14 @@
 FROM node:20.5.1-slim AS build
 WORKDIR /usr/src/app
 COPY . .
+RUN corepack enable
 RUN yarn install --prod
 RUN yarn build
 
-FROM node:20.5.1-slim
+FROM node:20.5.1-slim AS prod
 WORKDIR /usr/src/app
 COPY --from=build /usr/src/app/dist ./dist
+COPY --from=build /usr/src/app/node_modules ./node_modules
 
-ENV NODE_ENV=production
-ENV TZ=America/Sao_Paulo
-EXPOSE 3333
+EXPOSE 3333 3334
 CMD [ "node", "./dist/server.js" ]
