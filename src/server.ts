@@ -26,7 +26,10 @@ console.log(
 );
 io.of(/^\/movie\/.+$/)
   .on('connection', (socket) => {
-    console.log('User connected to -> ' + socket.nsp?.name);
+    console.log('user connected to -> ' + socket.nsp?.name);
+  })
+  .on('disconnect', (socket) => {
+    console.log('user disconnect -> ' + socket.nsp?.name);
   })
   .use(socketIoMiddleware);
 
