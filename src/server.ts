@@ -26,10 +26,16 @@ console.log(
 );
 io.of(/^\/movie\/.+$/)
   .on('connection', (socket) => {
-    console.log('user connected to -> ' + socket.nsp?.name);
-  })
-  .on('disconnect', (socket) => {
-    console.log('user disconnect -> ' + socket.nsp?.name);
+    const ipAddress =
+      socket.request.headers['x-forwarded-for'] ||
+      socket.client.conn.remoteAddress;
+    const path = socket.nsp?.name;
+
+    console.log(`user[${ipAddress}] connected to -> ${path}`);
+
+    socket.on('disconnect', () => {
+      console.log(`user[${ipAddress}] disconnect -> ${path}`);
+    });
   })
   .use(socketIoMiddleware);
 
