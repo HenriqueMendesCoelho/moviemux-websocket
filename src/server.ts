@@ -36,6 +36,16 @@ io.of(/^\/movie\/.+$/)
     socket.on('disconnect', () => {
       console.log(`user[${ipAddress}] disconnect -> ${path}`);
     });
+
+    socket.on('join-room', (data) => {
+      socket.join(data.room);
+      console.log(`User[${ipAddress}] joined room -> ${data.room}`);
+    });
+
+    socket.on('leave-room', (data) => {
+      socket.leave(data.room);
+      console.log(`User[${ipAddress}] leaved room -> ${data.room}`);
+    });
   })
   .use(socketIoMiddleware);
 
