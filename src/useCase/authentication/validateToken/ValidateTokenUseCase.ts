@@ -4,7 +4,7 @@ import axios from 'axios';
 export class ValidateTokenUseCase {
   constructor() {}
 
-  private cineApiHost = process.env.CINE_API_HOST;
+  private cineApiHost = process.env.CINE_BACKEND_URL;
 
   async tokenIsValid(token: string) {
     try {
