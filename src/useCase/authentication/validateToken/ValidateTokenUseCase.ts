@@ -9,7 +9,7 @@ export class ValidateTokenUseCase {
   async tokenIsValid(token: string) {
     try {
       const res = await this.getUserByToken(token);
-      return Boolean(Object.keys(res)?.length);
+      return !!Object.keys(res)?.length;
     } catch {
       return false;
     }
@@ -29,7 +29,7 @@ export class ValidateTokenUseCase {
 
   private async getUserByToken(token: string) {
     try {
-      const res = await axios.get(`${this.cineApiHost}/api/user`, {
+      const res = await axios.get(`${this.cineApiHost}/user`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -37,7 +37,8 @@ export class ValidateTokenUseCase {
 
       return res?.data as GetUserType;
     } catch (error) {
-      return null;
+      console.log('Token is not valid', error);
+      return;
     }
   }
 }
