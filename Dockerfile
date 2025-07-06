@@ -1,12 +1,18 @@
-FROM node:20.5.1-slim AS build
+FROM node:24.3.0-alpine AS build
 WORKDIR /usr/src/app
-COPY . .
-RUN corepack enable
-RUN yarn install --prod
-RUN yarn build
 
-FROM node:20.5.1-slim AS prod
+COPY . .
+
+RUN corepack enable && \
+    corepack prepare pnpm@latest --activate && \
+    pnpm install --frozen-lockfile
+
+RUN pnpm build
+
+FROM node:24.3.0-alpine AS prod
+
 WORKDIR /usr/src/app
+
 COPY --from=build /usr/src/app/dist ./dist
 COPY --from=build /usr/src/app/node_modules ./node_modules
 
