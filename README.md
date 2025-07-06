@@ -1,4 +1,4 @@
-# MovieMux - Socket.IO
+# Movie Mux - Socket.IO
 
 ## Introduction
 
@@ -14,6 +14,6 @@ Typescript, Express, Socket.io, Node.js, SQLite, TypeORM
 
 ### Link
 
-[MovieMux frontEnd](https://github.com/HenriqueMendesCoelho/moviemux)
+[Movie Mux frontEnd](https://github.com/HenriqueMendesCoelho/moviemux)
 
 This product uses the TMDB API but is not endorsed or certified by TMDB.
