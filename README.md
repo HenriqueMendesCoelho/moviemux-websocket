@@ -1,4 +1,4 @@
-# CineKronusBoss - Socket.IO
+# MovieMux - Socket.IO
 
 ## Introduction
 
@@ -14,6 +14,6 @@ Typescript, Express, Socket.io, Node.js, SQLite, TypeORM
 
 ### Link
 
-[CineKronusBoss website](https://www.cine.kronusboss.com)
+[MovieMux frontEnd](https://github.com/HenriqueMendesCoelho/moviemux)
 
 This product uses the TMDB API but is not endorsed or certified by TMDB.
