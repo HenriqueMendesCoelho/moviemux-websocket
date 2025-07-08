@@ -6,10 +6,6 @@ import { socketIoMiddleware } from './middleware/SocketIoMiddleware';
 
 process.env.TZ = 'America/Sao_Paulo';
 
-if (process.env.NODE_ENV !== 'production') {
-  require('dotenv').config({ path: '.env' });
-}
-
 //Start Socket.io
 const PORT_SOCKET_IO = 3334;
 const io = new Server({
