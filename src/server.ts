@@ -17,8 +17,8 @@ const io = new Server({
 io.listen(PORT_SOCKET_IO);
 console.log(
   `Socket.io started at http://localhost:${PORT_SOCKET_IO} -> ${new Date().toLocaleString(
-    'pt-Br'
-  )}`
+    'pt-Br',
+  )}`,
 );
 io.of(/^\/movie\/.+$/)
   .on('connection', (socket) => {
@@ -43,6 +43,9 @@ io.of(/^\/movie\/.+$/)
       console.log(`User[${ipAddress}] leaved room -> ${data.room}`);
     });
   })
+  .on('error', (err) => {
+    console.log('Socket.io error:', err);
+  })
   .use(socketIoMiddleware);
 
 //Start Express
@@ -50,9 +53,9 @@ const PORT = 3333;
 app.listen(PORT, () =>
   console.log(
     `Express started at http://localhost:${PORT} -> ${new Date().toLocaleString(
-      'pt-Br'
-    )}`
-  )
+      'pt-Br',
+    )}`,
+  ),
 );
 
 //Start Data Source typeORM
