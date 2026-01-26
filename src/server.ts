@@ -44,7 +44,9 @@ io.of(/^\/movie\/.+$/)
     });
   })
   .on('error', (err) => {
-    console.log('Socket.io error:', err);
+    console.debug('\n\n\n\n');
+    console.debug('#######', 'Socket.io error:', err, '#######');
+    console.debug('\n\n\n\n');
   })
   .use(socketIoMiddleware);
 
