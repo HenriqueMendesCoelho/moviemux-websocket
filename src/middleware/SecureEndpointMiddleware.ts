@@ -8,20 +8,24 @@ export async function secureApiKey(
 ) {
   const headerAuthorization = request.headers['authorization'];
 
-  if (!headerAuthorization) {
+  const bearerToken = typeof headerAuthorization === 'string'
+    ? /^Bearer (\S+)$/i.exec(headerAuthorization)
+    : null;
+
+  if (!bearerToken) {
     response.status(403).end();
     return;
   }
 
-  const apikey = headerAuthorization.slice(7);
-  const startsWithKb = apikey.slice(0, 3) === 'Kb.';
+  const apikey = bearerToken[1];
+  const startsWithKb = apikey.startsWith('Kb.') && apikey.length > 3;
 
   if (!startsWithKb) {
     response.status(403).end();
     return;
   }
 
-  const apikeyExists = await ApiKey.findBy({ key: apikey });
+  const apikeyExists = await ApiKey.findOneBy({ key: apikey });
 
   if (!apikeyExists) {
     response.status(403).end();
